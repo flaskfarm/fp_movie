@@ -1,0 +1,7 @@
+title: "영화 파일처리"
+version: "1.0.0"
+package_name: "fp_movie"
+developer: "flaskfarm"
+description: "영화 파일처리"
+home: "https://github.com/flaskfarm/fp_movie"
+more: "https://raw.githubusercontent.com/flaskfarm/fp_movie/main/README.md"

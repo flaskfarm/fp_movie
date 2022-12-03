@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+{{ macros.m_button_group([['globalSettingSaveBtn', '설정 저장'], ['globalOneExecuteBtn', '1회 실행'], ['globalImmediatelyExecuteBtn', '즉시 실행']])}}
+{{ macros.m_row_start('5') }}
+{{ macros.m_row_end() }}
+
+<nav>
+  {{ macros.m_tab_head_start() }}
+    {{ macros.m_tab_head('normal', '기본', true) }}
+    {{ macros.m_tab_head('etc', '기타', false) }} 
+    {{ macros.m_tab_head('auto', '자동', false) }}
+    {{ macros.m_tab_head('db', 'DB', false) }}
+  {{ macros.m_tab_head_end() }}
+</nav>
+<form id='setting'>
+  <div class="tab-content" id="nav-tabContent">
+    {{ macros.m_tab_content_start('normal', true) }}
+      {{ macros.setting_input_text_and_buttons('basic_path_source', '소스 폴더', [['select_basic_path_source_btn', '경로 선택']], desc=None, value=arg['basic_path_source']) }}
+      {{ macros.setting_input_text_and_buttons('basic_meta_order', '메타 검색 순서', desc=None, value=arg['basic_meta_order']) }}
+      {{ macros.setting_input_text_and_buttons('basic_target_root_a', 'TYPE A - 타겟 폴더', [['select_basic_target_root_a_btn', '경로 선택']], desc=None, value=arg['basic_target_root_a']) }}
+      {{ macros.setting_input_textarea('basic_target_format_a', 'TYPE A - 타겟 포맷', desc=None, row=5, value=arg['basic_target_format_a']) }}
+      {{ macros.setting_input_text_and_buttons('basic_target_root_b', 'TYPE B - 타겟 폴더', [['select_basic_target_root_b_btn', '경로 선택']], desc=None, value=arg['basic_target_root_b']) }}
+      {{ macros.setting_input_textarea('basic_target_format_b', 'TYPE B - 타겟 포맷', desc=None, row=5, value=arg['basic_target_format_b']) }}
+      {{ macros.m_hr() }}
+      {{ macros.setting_input_text_and_buttons('basic_path_config', '고급 설정 파일', [['globalEditBtn', '편집', [['file', arg['basic_path_config']]] ]], value=arg['basic_path_config']) }}
+      {{ macros.setting_checkbox('basic_use_notify', '알림 사용', value=arg['basic_use_notify'], desc=['메시지 ID : fp_movie_basic']) }}
+    {{ macros.m_tab_content_end() }}  
+
+    {{ macros.m_tab_content_start('etc', false) }}
+      {{ macros.setting_input_text_and_buttons('basic_remove_file_extension', '삭제 파일 확장명', desc=['구분자 ,'], value=arg['basic_remove_file_extension']) }}
+      {{ macros.setting_input_text_and_buttons('basic_remove_folder_except_name', '이 값을 제외하고 폴더 삭제', desc=['소문자로만 입력. 구분자 ,', 'ALL 일 경우 삭제하지 않음', '빈값일 경우 모든 폴더 삭제'], value=arg['basic_remove_folder_except_name'],) }}
+      {{ macros.setting_input_text_and_buttons('basic_is_hardsub_check', 'hard subtitle 분류', desc=['구분자 공백'], value=arg['basic_is_hardsub_check']) }}
+      {{ macros.setting_input_text_and_buttons('basic_is_vod_check', 'VOD 분류', desc=['구분자 공백'], value=arg['basic_is_vod_check']) }}
+      {{ macros.setting_checkbox('basic_make_info_json', 'info.json 생성', value=arg['basic_make_info_json'], desc=None) }}
+      
+    {{ macros.m_tab_content_end() }}  
+
+    {{ macros.m_tab_content_start('auto', false) }}
+      {{ macros.global_setting_scheduler_button(arg['is_include'], arg['is_running']) }}
+      {{ macros.setting_input_text('basic_interval', '스케쥴링 실행 정보', value=arg['basic_interval'], col='3', desc=['Inverval(minute 단위)이나 Cron 설정']) }}
+      {{ macros.setting_checkbox('basic_auto_start', '시작시 자동실행', value=arg['basic_auto_start'], desc='On : 시작시 자동으로 스케쥴러에 등록됩니다.') }}
+    {{ macros.m_tab_content_end() }}
+    {{ macros.m_tab_content_start('db', false) }}
+      {{ macros.setting_input_text_and_buttons('basic_db_delete_day', 'DB 삭제 기간', [['globalDbDeleteDayBtn', '기간 적용 삭제', [['tag_id','basic_db_delete_day']]], ['globalDbDeleteBtn', '전체 삭제']], value=arg['basic_db_delete_day'], col='6') }} 
+      {{ macros.setting_checkbox('basic_db_auto_delete', 'DB 자동 삭제', value=arg['basic_db_auto_delete'], desc=['On : 기간 적용하여 DB를 자동 삭제합니다.']) }}
+    {{ macros.m_tab_content_end() }} 
+  </div>
+</form>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+});
+
+
+$("body").on('click', '#select_basic_path_source_btn', function(e){
+  e.preventDefault();
+  var path = $('#basic_path_source').val().trim();
+  if (path == '') path = '/';
+  globalSelectLocalFolder("소스 폴더", path, function(result){
+    $('#basic_path_source').val(result);
+  });
+});
+
+$("body").on('click', '#select_basic_target_root_a_btn', function(e){
+  e.preventDefault();
+  var path = $('#basic_target_root_a').val().trim();
+  if (path == '') path = '/';
+  globalSelectLocalFolder("타겟 루트 A", path, function(result){
+    $('#basic_target_root_a').val(result);
+  });
+});
+
+
+$("body").on('click', '#select_basic_target_root_b_btn', function(e){
+  e.preventDefault();
+  var path = $('#basic_target_root_b').val().trim();
+  if (path == '') path = '/';
+  globalSelectLocalFolder("타겟 루트 B", path, function(result){
+    $('#basic_target_root_a').val(result);
+  });
+});
+
+
+</script>    
+{% endblock %}
