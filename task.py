@@ -179,7 +179,7 @@ class Task(object):
             elif track['codec_type'] == 'subtitle':
                 db_item.subtitle_count += 1
                 if 'tags' in track and 'language' in track['tags']:
-                    P.logger.info(track['tags']['language'])
+                    #P.logger.info(track['tags']['language'])
                     if track['tags']['language'] in ['kor', 'ko']:
                         db_item.include_kor_subtitle = True
                     if track['tags']['language'] not in subtitle_list:
