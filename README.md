@@ -99,12 +99,12 @@ Web UI는 타겟 타입A, 타입B에 대한 설정만 있다.
     - `VIDEO_CODEC` : 비디오 코덱
     - `AUDIO_CODEC` : 오디오 코덱(첫번째)
     - `AUDIO_COUNT` : 오디오 스트림 수
-    - `INCLUDE_KOR_AUDIO` : 한국어 오딩이 있는 겅우 `K` 없으면 빈값
+    - `INCLUDE_KOR_AUDIO` : 한국어 오디오가 있는 경우 `K` 없으면 빈값
     - `SUBTITLE_COUNT` : 내장 자막 수
   3. 기타
     - `INCLUDE_KOR_SUBTITLE` : 한국어 자막이 있는 경우 `K` 없으면 빈값
     - `FILE_SUBTITLE_COUNT` : 폴더 내 자막파일 수
-    - `INCLUDE_KOR_FILE_SUBTITLE` : 한걱우 자막 파일이 있는 `K` 없으면 빈값
+    - `INCLUDE_KOR_FILE_SUBTITLE` : 한국어 자막 파일이 있는 경우 `K` 없으면 빈값
     - `ORIGINAL` : 원본 폴더명
     - / : 폴더 구분자
 
