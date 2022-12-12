@@ -319,18 +319,18 @@ class Task(object):
         if order_list != None:
             for condition_name in order_list:
                 condition_list = Task.config.get('타겟 설정')
-                condiction_data = None
+                condition_data = None
                 for _ in condition_list:
                     if _['이름'] == condition_name:
-                        condiction_data = _
+                        condition_data = _
                         break
                 try:
                     mod = imp.new_module('my_code')
-                    exec(condiction_data['코드'], mod.__dict__)
+                    exec(condition_data['코드'], mod.__dict__)
                     if mod.check(db_item):
-                        db_item.log += f"타겟 조건: {condiction_data['이름']}"
-                        target_root = condiction_data['타겟루트']
-                        target_format = condiction_data['타겟포맷']
+                        db_item.log += f"타겟 조건: {condition_data['이름']}"
+                        target_root = condition_data['타겟루트']
+                        target_format = condition_data['타겟포맷']
                 except Exception as e: 
                     P.logger.error(f'Exception:{str(e)}')
                     P.logger.error(traceback.format_exc())
